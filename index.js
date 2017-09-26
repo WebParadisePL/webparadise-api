@@ -8,13 +8,13 @@ var service = express();
 service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
 
-service.post("/pythonista", function(req, res) {
-	res.setHeader("Content-Type", "application/json");
+service.post("/pythonista", function(request, response) {
+	response.setHeader("Content-Type", "application/json");
 	
-	var brightnessValue = req.body.brightnessValue;
+	var brightnessValue = request.body.brightnessValue;
 	
-	if (req.body.actionType == "ml.webparadise.api.action.ObjCAction" && req.body.function == "ml.webparadise.api.function.setBrightness") {
-		res.send(JSON.stringify({
+	if (request.body.actionType == "ml.webparadise.api.action.ObjCAction" && request.body.functionType == "ml.webparadise.api.function.setBrightness") {
+		response.send(JSON.stringify({
 			importModule: "from objc_util import *\n",
 			codeBody: "UIScreen = ObjCClass('UIScreen')\n screen = UIScreen.mainScreen()\n screen.setBrightness_(" + brightnessValue + ")\n"
 		}));

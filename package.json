@@ -2,9 +2,9 @@
 	"name": "webparadise-api",
 	"version": "1.0",
 	"description": "API used by WebParadise Pvt. Ltd.",
-	"main": "src/index.js",
+	"main": "index.js",
 	"scripts": {
-		"start": "node src/index.js"
+		"start": "node index.js"
 	},
 	"author": "WebParadise Pvt. Ltd. <business@webparadise.ml> (http://webparadise.ml)",
 	"license": "MIT",

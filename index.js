@@ -21,6 +21,6 @@ service.post("/pythonista", function(request, response) {
 	}
 });
 
-service.listen((process.env.PORT || 5000), function() {
+service.listen((process.env.PORT || 3000), function() {
 	console.log("Listening to the server.");
 });

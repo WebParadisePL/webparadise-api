@@ -1,0 +1,7 @@
+{
+	"name": "WebParadise Pvt. Ltd.",
+	"description": "API used by WebParadise Pvt. Ltd.",
+	"repository": "https://github.com/WebParadisePL/webparadise-api",
+	"logo": "http://webparadise.ml/logo.png",
+	"keywords": ["api", "web", "nodejs"]
+}

@@ -30,25 +30,25 @@ service.post('/oauth/python/v1.1/authorize', function(request, response) {
 	if (request.body.username == "user_admin" && request.body.password == "passkey123") {
 		response.send(JSON.stringify({
 			authCallbackCode: 200,
-			giveAccess = true,
+			giveAccess: true,
 			message: "You are welcome to Simple Auth."
 		}));
 	} else if (request.body.username !== "user_admin" && request.body.password == "passkey123") {
 		response.send(JSON.stringify({
 			authCallbackCode: 201,
-			giveAccess = false,
+			giveAccess: false,
 			message: "Your username is incorrect."
 		}));
 	} else if (request.body.username == "user_admin" && request.body.password !== "passkey123") {
 		response.send(JSON.stringify({
 			authCallbackCode: 202,
-			giveAccess = false,
+			giveAccess: false,
 			message: "Your password is incorrect."
 		}));
 	} else {
 		response.send(JSON.stringify({
 			authCallbackCode: 203,
-			giveAccess = false,
+			giveAccess: false,
 			message: "Your username & password are incorrect."
 		}));
 	}

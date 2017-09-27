@@ -9,7 +9,7 @@ service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
 service.set('port', (process.env.PORT || 3000));
 
-service.post('/pythonista', function(request, response) {
+service.get('/pythonista', function(request, response) {
 	response.setHeader('Content-Type', 'application/json');
 	
 	var brightnessValue = request.body.brightnessValue;

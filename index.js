@@ -7,6 +7,7 @@ const service = express();
 
 service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
+service.set('port', (process.env.PORT || 3000));
 
 service.get('/pythonista', function(request, response) {
 	response.setHeader('Content-Type', 'application/json');
@@ -21,6 +22,6 @@ service.get('/pythonista', function(request, response) {
 	}
 });
 
-service.listen((process.env.PORT || 5000), function() {
+service.listen(service.get('port'), function() {
 	console.log('Listening to the server.');
 });

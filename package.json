@@ -1,18 +1,27 @@
 {
 	"name": "webparadise-api",
-	"version": "1.0",
+	"version": "1.0.0",
 	"description": "API used by WebParadise Pvt. Ltd.",
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js"
 	},
-	"author": "WebParadise Pvt. Ltd. <business@webparadise.ml> (http://webparadise.ml)",
-	"license": "MIT",
 	"dependencies": {
-		"body-parser": "^1.17.2",
-		"express": "^4.15.3"
+		"express": "^4.15.3",
+		"body-parser": "^1.17.2"
 	},
 	"engines": {
-		"node": "8.1.4"
-	}
+		"node": "4.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/WebParadisePL/webparadise-api"
+	},
+	"keywords": [
+		"api",
+		"web",
+		"nodejs"
+	],
+	"author": "WebParadise Pvt. Ltd. <business@webparadise.ml> (http://webparadise.ml)",
+	"license": "MIT"
 }

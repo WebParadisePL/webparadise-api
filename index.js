@@ -18,7 +18,7 @@ service.post('/pythonista', function(request, response) {
 		if (request.body.actionType == 'ml.webparadise.api.action.ObjCAction' && request.body.functionType == 'ml.webparadise.api.function.setBrightness') {
 			response.send(JSON.stringify({
 				importModule: 'from objc_util import *\n',
-				codeBody: 'UIScreen = ObjCClass("UIScreen")\n screen = UIScreen.mainScreen()\n screen.setBrightness_(' + brightnessValue + ')\n'
+				codeBody: 'UIScreen = ObjCClass("UIScreen")\nscreen = UIScreen.mainScreen()\nscreen.setBrightness_(' + brightnessValue + ')\n'
 			}));
 		}
 	}, 1000)

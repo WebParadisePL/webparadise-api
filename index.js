@@ -7,7 +7,7 @@ const service = express();
 service.set('port', (process.env.PORT || 3000));
 service.set('view engine', 'pug');
 
-servcie.use(bodyParser.json());
+service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
 
 service.get('/py/requests', function(request, response) {

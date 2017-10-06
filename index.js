@@ -64,7 +64,7 @@ service.get('/data/developers/:id', function(request, response) {
 			});
 		} else {
 			if (rows.length == 1) {
-				var developer {
+				var developer = {
 					'name': rows[0].name,
 					'post': rows[0].post,
 					'img': rows[0].img,

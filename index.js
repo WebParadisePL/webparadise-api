@@ -2,56 +2,86 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 const service = express();
 
 service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
 
 service.set('port', (process.env.PORT || 3000));
+service.set('view engine', 'pug');
 
-service.post('/pythonista', function(request, response) {
-	response.setHeader('Content-Type', 'application/json');
+function getMySQLConnection() {
+	return mysql.createConnection({
+		host: 'sql12.freesqldatabase.com',
+		user: 'sql12197988',
+		password: 'pMCjlAs8ZS',
+		database: 'sql12197988'
+	});
+}
+
+service.get('/data/developers', function(request, response) {
+	var developersList = [];
 	
-	var brightnessValue = request.body.brightnessValue;
+	var connection = getMySQLConnection();
+	connection.connect();
 	
-	setTimeout(function() {
-		if (request.body.actionType == 'ml.webparadise.api.action.ObjCAction' && request.body.functionType == 'ml.webparadise.api.function.setBrightness') {
-			response.send(JSON.stringify({
-				importModule: 'from objc_util import *\n',
-				codeBody: 'UIScreen = ObjCClass("UIScreen")\nscreen = UIScreen.mainScreen()\nscreen.setBrightness_(' + brightnessValue + ')\n'
-			}));
+	connection.query('SELECT * FROM nodejs', function(error, rows, fields) {
+		if (error) {
+			response.status(500).json({
+				'status_code': 500,
+				'status_message': 'Internal Server Error'
+			});
+		} else {
+			for (var i = 0; i < rows.length; i++) {
+				var developer = {
+					'name': rows[i].name,
+					'post': rows[i].post,
+					'img': rows[i].img,
+					'id': rows[i].id
+				}
+				developersList.push(developer);
+			}
+			response.render('developers', {
+				'developersList': developersList
+			});
 		}
-	}, 1000)
+	});
+	connection.end();
 });
 
-service.post('/oauth/python/v1.1/authorize', function(request, response) {
-	response.setHeader('Content-Type', 'application/json');
+service.get('/data/developers/:id', function(request, response) {
+	var connection = getMySQLConnection();
+	connection.connect();
 	
-	if (request.body.username == "user_admin" && request.body.password == "passkey123") {
-		response.send(JSON.stringify({
-			authCallbackCode: 200,
-			giveAccess: true,
-			message: "You are welcome to Simple Auth."
-		}));
-	} else if (request.body.username !== "user_admin" && request.body.password == "passkey123") {
-		response.send(JSON.stringify({
-			authCallbackCode: 201,
-			giveAccess: false,
-			message: "Your username is incorrect."
-		}));
-	} else if (request.body.username == "user_admin" && request.body.password !== "passkey123") {
-		response.send(JSON.stringify({
-			authCallbackCode: 202,
-			giveAccess: false,
-			message: "Your password is incorrect."
-		}));
-	} else {
-		response.send(JSON.stringify({
-			authCallbackCode: 203,
-			giveAccess: false,
-			message: "Your username & password are incorrect."
-		}));
-	}
+	connection.query('SELECT * FROM nodejs WHERE id = ' + request.params.id, function(error, rows, fields) {
+		var developer;
+		
+		if (error) {
+			response.status(500).json({
+				'status_code': 500,
+				'status_message': 'Internal Server Error'
+			});
+		} else {
+			if (rows.length == 1) {
+				var developer {
+					'name': rows[0].name,
+					'post': rows[0].post,
+					'img': rows[0].img,
+					'id': rows[0].id
+				}
+				response.render('developers_detail', {
+					'developer': developer
+				});
+			} else {
+				response.status(404).json({
+					'status_code': 404,
+					'status_message': 'Not Found'
+				});
+			}
+		}
+	});
+	connection.end();
 });
 
 service.listen(service.get('port'), function() {

@@ -13,7 +13,7 @@ service.set('view engine', 'pug');
 service.use(bodyParser.json());
 service.use(bodyParser.urlencoded({extended: true}));
 
-service.post('/', function(request, response) {
+service.get('/', function(request, response) {
 	response.render('index');
 });
 
